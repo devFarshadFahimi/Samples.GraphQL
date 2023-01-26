@@ -1,0 +1,21 @@
+﻿@model ProductDTO
+@{
+    ViewData["Title"] = "Product Detail";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model is not null)
+{
+
+    <div> <strong>Name :</strong> @Model.Name </div>
+    <div> <strong>Status :</strong> @Model.Price </div>
+    <div> <strong>Status :</strong> @Model.Status </div>
+    <div> <strong>Description :</strong> @Model.Description </div>
+    <div> <strong>Category Title :</strong> @Model.ProductCategory?.Title </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        Product not found...
+    </div>
+}
