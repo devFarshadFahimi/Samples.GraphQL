@@ -5,10 +5,25 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>
+        This is a GraphQL client Sample code implemented with ASP.NET Core 7 <br />
+        Here is the sample github repository
+        <a href="https://github.com/devFarshadFahimi/Samples.GraphQL">Source Code</a>
+    </p>
 
     <hr class="bg-info" />
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
         @foreach (var item in Model)
         {
             <tr>

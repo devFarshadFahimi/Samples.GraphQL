@@ -17,6 +17,7 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+
+.container{
+min-height: 400px !important;
 }
