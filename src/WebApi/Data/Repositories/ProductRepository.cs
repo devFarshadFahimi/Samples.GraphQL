@@ -5,7 +5,7 @@ namespace WebApi.Data.Repositories;
 
 public interface IProductRepository
 {
-    IReadOnlyList<Product> GetAll(int pageNumber, int pageSize);
+    IQueryable<Product> GetAll(int pageNumber, int pageSize);
     Task<IReadOnlyList<Product>> GetAllAsync();
     IReadOnlyList<ProductCategory> GetAllProductCategories();
     IReadOnlyList<Product> GetAllProductsByCategoryId(int categoryId);
@@ -23,12 +23,11 @@ public class ProductRepository : IProductRepository
 
     public async Task<IReadOnlyList<Product>> GetAllAsync()
         => await _context.Products.ToListAsync();
-    public IReadOnlyList<Product> GetAll(int pageNumber,int pageSize)
+    public IQueryable<Product> GetAll(int pageNumber,int pageSize)
         => _context.Products
             .Include(p=>p.ProductCategory)
             .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
+            .Take(pageSize);
 
     public IReadOnlyList<ProductCategory> GetAllProductCategories()
     => _context.ProductCategories.ToList();
