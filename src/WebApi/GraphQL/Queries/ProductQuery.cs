@@ -1,5 +1,6 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using System.Linq.Expressions;
 using WebApi.Data.Repositories;
 using WebApi.GraphQL.Types;
 
@@ -14,18 +15,19 @@ public class ProductQuery : ObjectGraphType
         )
         .Arguments(new QueryArgument<NonNullGraphType<IdGraphType>>() { Name = "pageNumber" })
         .Arguments(new QueryArgument<NonNullGraphType<IdGraphType>>() { Name = "pageSize" })
-            .Resolve(p =>
-       {
-           //var userContext = p.UserContext as MyGraphQLUserContext;
-           //if (!userContext.User.Identity.IsAuthenticated)
-           //{
-           //    p.Errors.Add(new ExecutionError("Invalid credential"));
-           //    return null;
-           //}
-           var pageNumber = p.GetArgument<int>("pageNumber");
-           var pageSize = p.GetArgument<int>("pageSize");
-           return productRepository.GetAll(pageNumber, pageSize);
-       });
+        .Resolve(p =>
+        {
+            //var userContext = p.UserContext as MyGraphQLUserContext;
+            //if (!userContext.User.Identity.IsAuthenticated)
+            //{
+            //    p.Errors.Add(new ExecutionError("Invalid credential"));
+            //    return null;
+            //}
+            var pageNumber = p.GetArgument<int>("pageNumber");
+            var pageSize = p.GetArgument<int>("pageSize");
+            return productRepository.GetAll(pageNumber, pageSize)
+                .SelectProjectTo(p.SubFields?.Keys.ToList()!);
+        });
 
         Field<ListGraphType<ProductCategoryType>>("productCategories")
             .Resolve(p => productRepository.GetAllProductCategories());
@@ -40,3 +42,4 @@ public class ProductQuery : ObjectGraphType
            });
     }
 }
+
