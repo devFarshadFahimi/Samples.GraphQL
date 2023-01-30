@@ -41,10 +41,45 @@
     ...
     app.Run();
 ````
+ <h3> 3 -  You should change Connection String in AppSetting.json </h3>
 
-With this configuration two endpoints will reachable if you run it in your Localhost as below: <br />
-1 : https://localhost:port/graphql // which is running GraphQL server <br />
-2 : https://localhost:port/ui/playground // which is an interface to working with GraphQL server <br />
+With this configuration, two endpoints will reachable if you run it in your Localhost as below: <br />
+1 : https://localhost:7207/graphql // which is running GraphQL server <br />
+2 : https://localhost:7207/ui/playground // which is an interface to working with GraphQL server <br />
+
+Some queries that you can run in https://localhost:7207/ui/playground interface:
+````
+query categories{
+  productCategories {
+    id,
+    title,
+    products{
+      id,
+      name
+    }
+  }
+}
+
+query allProducts{
+  products(pageNumber: 1, pageSize : 4){
+    id,
+    name,
+    productCategory{
+      title
+    }
+  }
+}
+
+query getSingleProduct{
+  product(id: 2){
+    id,
+    name,
+    productCategory{
+      title
+    }
+  }
+}
+````
 <hr >
 
 # Other implementations
